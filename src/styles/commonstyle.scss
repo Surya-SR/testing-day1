@@ -1,0 +1,27 @@
+@layer reset, primereact;
+
+@layer reset{
+  .p-menubar{
+    background-color: var(--primarycolor);
+    .p-menubar-root-list{
+      margin-inline: auto;
+    }
+  }
+}
+
+a{
+    text-decoration: none;
+  }
+  
+  .d-flex{
+    display: flex;
+  }
+  .align-items-center{
+    align-items: center;
+  }
+  .justify-content-center{
+    justify-content: center;
+  }
+  .justify-content-between{
+    justify-content: center;
+  }
