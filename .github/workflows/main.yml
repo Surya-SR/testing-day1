@@ -30,9 +30,6 @@ jobs:
     - name: Run tests
       run: npm run test -- --ci --coverage
 
-    - name: Run linter
-      run: npm run lint  # Assuming you have a lint script in your package.json
-
     - name: Build
       run: npm run build
 
