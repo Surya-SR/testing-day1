@@ -6,7 +6,7 @@ const Counter = () => {
    
   return (
     <div className="counter-con">
-      <h1>{process.env.NODE_ENV}</h1>
+      <h1>{process.env.REACT_APP_NODE_ENV}</h1>
         <h1>Counter</h1>
         
         <Divider />
