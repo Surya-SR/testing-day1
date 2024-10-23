@@ -19,11 +19,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:dev": "env-cmd -f .env.dev  npm run test npm run build",
-    "build:qa": "env-cmd -f .env.qa  npm run test npm run build",
-    "build:uat": "env-cmd -f .env.uat  npm run test npm run build",
-    "build:prod": "env-cmd -f .env.prod  npm run test npm run build",
-    "test": "react-scripts test",
+    "build:dev": "env-cmd -f .env.dev  npm run build",
+    "build:qa": "env-cmd -f .env.qa  npm run build",
+    "build:uat": "env-cmd -f .env.uat  npm run build",
+    "build:prod": "env-cmd -f .env.prod  npm run build",
+    "test": "react-scripts test --watchAll=false",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -46,16 +48,20 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@eslint/js": "^9.13.0",
     "@testing-library/jest-dom": "^6.6.2",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "env-cmd": "^10.1.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.2",
+    "globals": "^15.11.0",
     "react-test-renderer": "^18.3.1"
   },
   "jest": {
-    "moduleNameMapper": { 
-    "\\.(css|less|scss|sass)$": "<rootDir>/__mocks__/styleMock.js",
-    "^primereact/(.*)$": "<rootDir>/__mocks__/primeReactMock.js"
-   }
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "<rootDir>/__mocks__/styleMock.js",
+      "^primereact/(.*)$": "<rootDir>/__mocks__/primeReactMock.js"
+    }
   }
 }
