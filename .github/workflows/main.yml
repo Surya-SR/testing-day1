@@ -27,6 +27,17 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    # Run tests using Jest
     - name: Run tests
       run: npm run test -- --ci --coverage
+
+    - name: Run linter
+      run: npm run lint  # Assuming you have a lint script in your package.json
+
+    - name: Build
+      run: npm run build
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}  # Automatically provided by GitHub
+        publish_dir: ./build 
