@@ -44,8 +44,8 @@ jobs:
         run: npm run lint  # Assuming you have a lint script in your package.json
 
       - name: Build
-        run: npm run build:${{ github.event.inputs.environment }}  # Use the selected environment
-        if: github.event_name == 'workflow_dispatch'  # Only use input for manual runs
+        run: npm run build:prod  # Use the selected environment
+        # if: github.event_name == 'workflow_dispatch'  # Only use input for manual runs
   
       - name: Deploy to GitHub Pages
         if: success()  # Only deploy if the build step succeeded
