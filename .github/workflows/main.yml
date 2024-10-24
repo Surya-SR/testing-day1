@@ -5,19 +5,6 @@ on:
     branches:
       - main
 
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: "Select build environment (dev, qa, uat, prod)"
-        required: true
-        type: choice
-        default: "dev" # Default to 'dev' if no input is given
-        options:
-          - dev
-          - qa
-          - uat
-          - prod
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -31,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18.17.0"
+          node-version: "18.18.0"
 
       # Install dependencies
       - name: Install dependencies
@@ -44,12 +31,4 @@ jobs:
         run: npm run lint  # Assuming you have a lint script in your package.json
 
       - name: Build
-        run: npm run build:prod  # Use the selected environment
-        # if: github.event_name == 'workflow_dispatch'  # Only use input for manual runs
-  
-      - name: Deploy to GitHub Pages
-        if: success()  # Only deploy if the build step succeeded
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Automatically provided by GitHub
-          publish_dir: ./build   
+        run: npm run build
