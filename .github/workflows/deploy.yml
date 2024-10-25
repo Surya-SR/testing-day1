@@ -1,0 +1,52 @@
+name: Manual Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Select the environment to deploy to'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - qa
+          - uat
+          - prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: main # Ensure deployment from the main branch
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # Replace with your node version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build # Adjust this to your build command
+
+      - name: Deploy based on environment
+        run: |
+          if [ "${{ github.event.inputs.environment }}" == "dev" ]; then
+            echo "Deploying to Dev environment"
+            # Add your dev deployment command here
+          elif [ "${{ github.event.inputs.environment }}" == "qa" ]; then
+            echo "Deploying to QA environment"
+            # Add your QA deployment command here
+          elif [ "${{ github.event.inputs.environment }}" == "uat" ]; then
+            echo "Deploying to UAT environment"
+            # Add your UAT deployment command here
+          elif [ "${{ github.event.inputs.environment }}" == "prod" ]; then
+            echo "Deploying to Production environment"
+            # Add your Production deployment command here
+          fi
