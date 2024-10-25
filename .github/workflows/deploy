@@ -1,0 +1,50 @@
+name: Manual Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Select the environment to deploy to'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: main # Ensure deployment from the main branch
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # Replace with your node version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build # Adjust this to your build command
+
+      - name: Deploy to GitHub Pages (Production)
+        if: ${{ inputs.environment == 'prod' }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+         publish_dir: ./build  # Adjust to your build output directory
+         publish_branch: gh-pages  # Production deployment
+
+      - name: Deploy to GitHub Pages (Development)
+        if: ${{ inputs.environment == 'dev' }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build  # Adjust to your build output directory
+          publish_branch: gh-pages  # Development deployment
